@@ -19,7 +19,7 @@
 
 - name: add user to docker group
   user:
-    name: ubuntu
+    name: "{{ remote_user }}"
     groups: docker
 
 - name: remove useless packages from the cache
