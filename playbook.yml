@@ -1,6 +1,11 @@
 ---
 - name: Provision Vagrant guest host
   hosts: all
-  tasks:
-    - name: Say Hello
-      debug: msg="Hello Ansible"
+  become: yes
+  serial: 1
+  roles:
+    - docker
+#    - docker-mysql
+#    - docker-consul
+#    - docker-app
+
