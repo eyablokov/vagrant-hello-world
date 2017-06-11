@@ -1,0 +1,6 @@
+---
+- name: Provision Vagrant guest host
+  hosts: all
+  tasks:
+    - name: Say Hello
+      debug: msg="Hello Ansible"
