@@ -1,0 +1,28 @@
+---
+- name: create mysql container
+  docker_container:
+    name: docker-mysql
+    hostname: docker-mysql
+    image: "mysql:latest"
+    state: started
+    exposed_ports:
+      - 3306
+    volumes:
+      - /vagrant:/vagrant
+    env:
+      MYSQL_ROOT_PASSWORD: "v3rees3cr3tP4ssw0rd"
+      MYSQL_DATABASE: "hello_world"
+      MYSQL_USER: "app_user"
+      MYSQL_PASSWORD: "h3ll0w0rld"
+
+- name: add container to inventory
+  add_host: name=docker-mysql ansible_connection=docker
+  changed_when: False
+
+- name: install python into docker-mysql container
+  delegate_to: docker-mysql
+  raw: 'apt-get -qq -y update; apt-get --no-install-recommends -qq -y install python-simplejson sudo'
+
+- name: fill hello_world database with data
+  delegate_to: docker-mysql
+  shell: 'cat /vagrant/hello_world.sql | mysql -q -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
