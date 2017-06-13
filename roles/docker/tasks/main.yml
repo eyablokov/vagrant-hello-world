@@ -1,32 +1,38 @@
 ---
 - name: add docker repository key into apt
+  become: yes
   apt_key:
     url: "https://download.docker.com/linux/ubuntu/gpg"
     state: present
 
 - name: add docker repository into apt
+  become: yes
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
     state: present
     update_cache: yes
 
 - name: install docker
+  become: yes
   apt:
     name: docker-ce
     state: latest
     update_cache: yes
     install_recommends: no
 
+- name: install docker-py from pip
+  become: yes
+  pip: name=docker-py state=latest
+
 - name: add user to docker group
-  user:
-    name: "{{ remote_user }}"
-    groups: docker
+  become: yes
+  user: name=ubuntu groups=docker
 
 - name: remove useless packages from the cache
-  apt:
-    autoclean: yes
+  become: yes
+  apt: autoclean=yes
 
 - name: remove dependencies that are no longer required
-  apt:
-    autoremove: yes
+  become: yes
+  apt: autoremove=yes
 

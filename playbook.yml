@@ -1,11 +1,7 @@
 ---
-- name: Provision Vagrant guest host
+- name: Provisioning VirtualBox guest host (Controller) using Vagrant
   hosts: all
-  become: yes
   serial: 1
   roles:
     - docker
-#    - docker-mysql
-#    - docker-consul
-#    - docker-app
-
+    - docker-mysql
