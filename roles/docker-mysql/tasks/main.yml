@@ -25,4 +25,4 @@
 
 - name: fill hello_world database with data
   delegate_to: docker-mysql
-  shell: 'cat /vagrant/hello_world.sql | mysql -q -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
+  shell: 'cat /vagrant/roles/docker-mysql/files/hello_world.sql | mysql -q -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
