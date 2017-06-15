@@ -16,7 +16,10 @@
       MYSQL_PASSWORD: "h3ll0w0rld"
 
 - name: add container to inventory
-  add_host: name=docker-mysql ansible_connection=docker
+  add_host:
+    name: docker-mysql
+    ansible_hostname: docker-mysql
+    ansible_connection: docker
   changed_when: False
 
 - name: install python into docker-mysql container

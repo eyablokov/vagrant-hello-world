@@ -1,2 +1,5 @@
 .DS_Store
+*.retry
 .vagrant
+*.pyc
+__pycache__

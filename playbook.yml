@@ -5,5 +5,5 @@
   roles:
     - docker
     - docker-mysql
-    - docker-app
+    - docker-flask
 
