@@ -1,0 +1,32 @@
+---
+- name: create application container
+  docker_container:
+    name: docker-flask
+    hostname: docker-flask
+    image: "ubuntu:latest"
+    state: started
+    exposed_ports:
+      - 8080
+    volumes:
+      - /vagrant/roles/docker-flask/files:/opt/flask
+    command: ["sleep", "365d"]
+
+- name: add container to inventory
+  add_host:
+    name: docker-flask
+    ansible_hostname: docker-flask
+    ansible_connection: docker
+  changed_when: False
+
+- name: install software into docker-flask container
+  delegate_to: docker-flask
+  raw: 'apt-get -qq -y update; apt-get --no-install-recommends -qq -y install build-essential  gunicorn libmysqlclient-dev python-dev python-pip sudo; pip install -U pip'
+
+- name: install requirements
+  delegate_to: docker-flask
+  pip: requirements=requirements.txt chdir=/opt/flask
+
+- name: run gunicorn
+  delegate_to: docker-flask
+  command: gunicorn -c /opt/flask/config.py app:app
+
