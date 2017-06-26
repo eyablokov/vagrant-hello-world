@@ -1,0 +1,13 @@
+{
+    "bind_addr": "172.17.0.2",
+    "data_dir": "/consul/data",
+    "encrypt": "xLCOMeDjUaT/0PedcpUA9g==",
+    "log_level": "info",
+    "node_name": "docker-consul",
+    "rejoin_after_leave": true,
+    "retry_join": [
+        "172.17.0.2:8301"
+    ],
+    "server": true,
+    "skip_leave_on_interrupt": true
+}

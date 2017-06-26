@@ -1,0 +1,26 @@
+---
+- name: create consul container
+  docker_container:
+    name: docker-consul
+    hostname: docker-consul
+    image: "consul:latest"
+    state: started
+    volumes:
+      - "/vagrant/roles/docker-consul/files:/consul/config"
+    ports:
+      - "10.0.2.15:8300:8300"
+      - "10.0.2.15:8301:8301"
+      - "10.0.2.15:8301:8301/udp"
+      - "10.0.2.15:8302:8302"
+      - "10.0.2.15:8302:8302/udp"
+      - "10.0.2.15:8400:8400"
+      - "10.0.2.15:8500:8500"
+      - "172.17.0.1:53:53/udp"
+
+- name: add docker-consul container to inventory
+  add_host:
+    name: docker-consul
+    ansible_hostname: docker-consul
+    ansible_connection: docker
+  changed_when: False
+
