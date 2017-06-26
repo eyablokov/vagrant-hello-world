@@ -8,7 +8,7 @@ app.debug = True
 
 @app.route('/')
 def db():
-    db = MySQLdb.connect("172.17.0.2", "app_user", "h3ll0w0rld", "hello_world")
+    db = MySQLdb.connect("172.17.0.4", "app_user", "h3ll0w0rld", "hello_world")
     cursor = db.cursor()
     cursor.execute("SELECT * FROM hello_world")
     data = cursor.fetchall()

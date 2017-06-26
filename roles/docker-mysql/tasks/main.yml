@@ -8,14 +8,16 @@
     exposed_ports:
       - 3306
     volumes:
-      - /vagrant:/vagrant
+      - "/vagrant:/vagrant"
+    ports:
+      - "10.0.2.15:3306:3306"
     env:
       MYSQL_ROOT_PASSWORD: "v3rees3cr3tP4ssw0rd"
       MYSQL_DATABASE: "hello_world"
       MYSQL_USER: "app_user"
       MYSQL_PASSWORD: "h3ll0w0rld"
 
-- name: add container to inventory
+- name: add docker-mysql container to inventory
   add_host:
     name: docker-mysql
     ansible_hostname: docker-mysql

@@ -4,6 +4,8 @@
   serial: 1
   roles:
     - docker
+    - docker-consul
+    - consul-registrator
     - docker-mysql
     - docker-flask
 

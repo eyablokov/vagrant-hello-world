@@ -8,10 +8,12 @@
     exposed_ports:
       - 8080
     volumes:
-      - /vagrant/roles/docker-flask/files:/opt/flask
+      - "/vagrant/roles/docker-flask/files:/opt/flask"
+    ports:
+      - "10.0.2.15:8080:8080"
     command: ["sleep", "365d"]
 
-- name: add container to inventory
+- name: add docker-flask container to inventory
   add_host:
     name: docker-flask
     ansible_hostname: docker-flask
