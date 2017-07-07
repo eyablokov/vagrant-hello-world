@@ -1,0 +1,10 @@
+---
+- name: Provisioning VirtualBox guest host (Controller) using Vagrant
+  hosts: all
+  serial: 1
+  tasks:
+    - include: playbooks/docker.yml
+    - include: playbooks/docker-consul.yml
+    - include: playbooks/consul-registrator.yml
+    - include: playbooks/docker-mysql.yml
+    - include: playbooks/docker-flask.yml
