@@ -26,7 +26,10 @@
 
 - name: add user to docker group
   become: yes
-  user: name=ubuntu groups=docker
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
 
 - name: remove useless packages from the cache
   become: yes
@@ -35,13 +38,3 @@
 - name: remove dependencies that are no longer required
   become: yes
   apt: autoremove=yes
-
-- name: configure environment
-  lineinfile:
-    path: "$HOME/.bashrc"
-    line: "{{ item }}"
-    insertafter: 'EOF'
-  with_items:
-    - "DOCKER_HOST_IP=$(ip a s enp0s3 | grep 'inet ' | awk '{print $2}' | cut -d '/' -f 1)"
-    - "DOCKER_BRIDGE_IP=$(ip a s docker0 | grep 'inet ' | awk '{print $2}' | cut -d '/' -f 1)"
-

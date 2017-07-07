@@ -8,7 +8,7 @@
     exposed_ports:
       - 3306
     volumes:
-      - "/vagrant:/vagrant"
+      - "/vagrant/custom-files/docker-mysql:/tmp/dump"
     ports:
       - "10.0.2.15:3306:3306"
     env:
@@ -30,4 +30,4 @@
 
 - name: fill hello_world database with data
   delegate_to: docker-mysql
-  shell: 'cat /vagrant/roles/docker-mysql/files/hello_world.sql | mysql -q -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
+  shell: 'cat /tmp/dump/hello_world.sql | mysql -q -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'

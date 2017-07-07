@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "ansible_local" do |ansible|
         ansible.install = true
         ansible.install_mode = "pip"
-        ansible.playbook = "playbook.yml"
+        ansible.playbook = "master.yml"
         ansible.inventory_path = "/vagrant/inventory"
         ansible.limit = "all"
     end

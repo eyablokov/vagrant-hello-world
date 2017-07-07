@@ -8,7 +8,7 @@
     exposed_ports:
       - 8080
     volumes:
-      - "/vagrant/roles/docker-flask/files:/opt/flask"
+      - "/vagrant/custom-files/docker-flask:/opt/flask"
     ports:
       - "10.0.2.15:8080:8080"
     command: ["sleep", "365d"]
@@ -22,7 +22,7 @@
 
 - name: install software into docker-flask container
   delegate_to: docker-flask
-  raw: 'apt-get -qq -y update; apt-get --no-install-recommends -qq -y install build-essential  gunicorn libmysqlclient-dev python-dev python-pip sudo; pip install -U pip'
+  raw: 'apt-get -qq -y update; apt-get --no-install-recommends -qq -y install build-essential gunicorn libmysqlclient-dev python-dev python-pip sudo; pip install -U pip'
 
 - name: install requirements
   delegate_to: docker-flask
@@ -31,4 +31,3 @@
 - name: run gunicorn
   delegate_to: docker-flask
   command: gunicorn -c /opt/flask/config.py app:app
-
